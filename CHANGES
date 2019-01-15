@@ -1,3 +1,10 @@
+jgrapenlp (2.1.0) stable; urgency=medium
+
+  * Maven clean target deletes GrapeNLP Java source files copied from native package libgrapenlp-dev upon install
+  * Maven verify target checks that native package libgrapenlp-dev is installed and suggests to install it if not
+
+ -- Javier Sastre <javier.sastre@telefonica.net>  Tue, 15 Jan 2019 10:52:06 +0100
+
 jgrapenlp (2.0.0) stable; urgency=medium
 
   * First working version.

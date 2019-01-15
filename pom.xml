@@ -4,7 +4,7 @@
 
     <groupId>com.grapenlp</groupId>
     <artifactId>jGrapeNlp</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -37,6 +37,30 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>Check GrapeNLP Java sources are installed</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireFilesExist>
+                                    <message>GrapeNLP Java sources not found; is native package libgrapenlp-dev installed?</message>
+                                    <files>
+                                        <file>/usr/src/grapenlp/jgrapenlp</file>
+                                    </files>
+                                </requireFilesExist>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.8</version>
                 <executions>
@@ -48,11 +72,24 @@
                         </goals>
                         <configuration>
                             <target name="copy SWIG files">
-                                <copydir src="/usr/src/grapenlp/jgrapenlp" dest="src/main/java/com/grapenlp/core"/>
+                                <copy todir="src/main/java/com/grapenlp/core">
+                                    <fileset dir="/usr/src/grapenlp/jgrapenlp"/>
+                                </copy>
                             </target>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/java/com/grapenlp/core</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
