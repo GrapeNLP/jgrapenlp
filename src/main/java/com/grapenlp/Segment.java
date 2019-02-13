@@ -51,4 +51,15 @@ public class Segment
     {
         this.end = end;
     }
+
+    public void appendToBuilder(StringBuilder builder, String sentence)
+    {
+        builder.append(name);
+        if (start < end)
+        {
+            builder.append(": ");
+            builder.append(sentence, (int)start, (int)end);
+            builder.append('\n');
+        }
+    }
 }

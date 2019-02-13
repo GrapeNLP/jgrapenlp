@@ -39,6 +39,15 @@ public class GrammarParse
         this.weight = weight;
     }
 
+    public void appendToBuilder(StringBuilder builder, String sentence)
+    {
+        builder.append("Parse segments with score ");
+        builder.append(weight);
+        builder.append(":\n");
+        for (Segment segment : segments)
+            segment.appendToBuilder(builder, sentence);
+    }
+
     static GrammarParse[] nativeGrammarParsesToJava(uaui_simple_segment_array_x_weight_array nativeGrammarParses)
     {
         int grammarParseCount = (int) nativeGrammarParses.size();
@@ -46,5 +55,13 @@ public class GrammarParse
         for (int i = 0; i < grammarParseCount; ++i)
             grammarParses[i] = new GrammarParse(nativeGrammarParses.get_elem_at(i));
         return grammarParses;
+    }
+
+    static String serializeParses(GrammarParse[] parses, String sentence)
+    {
+        StringBuilder builder = new StringBuilder();
+        for (GrammarParse parse : parses)
+            parse.appendToBuilder(builder, sentence);
+        return builder.toString();
     }
 }

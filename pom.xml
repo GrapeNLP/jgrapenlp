@@ -4,7 +4,7 @@
 
     <groupId>com.grapenlp</groupId>
     <artifactId>jGrapeNlp</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -50,7 +50,7 @@
                                 <requireFilesExist>
                                     <message>GrapeNLP Java sources not found; is native package libgrapenlp-dev installed?</message>
                                     <files>
-                                        <file>/usr/src/grapenlp/jgrapenlp</file>
+                                        <file>/usr/src/grapenlp/java</file>
                                     </files>
                                 </requireFilesExist>
                             </rules>
@@ -72,8 +72,8 @@
                         </goals>
                         <configuration>
                             <target name="copy SWIG files">
-                                <copy todir="src/main/java/com/grapenlp/core">
-                                    <fileset dir="/usr/src/grapenlp/jgrapenlp"/>
+                                <copy todir="src/main/java">
+                                    <fileset dir="/usr/src/grapenlp/java"/>
                                 </copy>
                             </target>
                         </configuration>
@@ -115,7 +115,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.grapenlp.JGrapeNlp</mainClass>
+                            <mainClass>com.grapenlp.MainGrammarEngine</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

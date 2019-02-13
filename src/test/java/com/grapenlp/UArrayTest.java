@@ -9,7 +9,6 @@ public class UArrayTest
 {
     static
     {
-        System.loadLibrary("grapenlp");
         System.loadLibrary("jgrapenlp");
     }
 
@@ -26,7 +25,7 @@ public class UArrayTest
                 };
     }
 
-    @Test(groups = {"unit"}, dataProvider = "javaStringDataProvider")
+    @Test(groups = {"unit"}, dataProvider = "javaStringDataProvider", enabled = false)
     public void test_encode_string_decode_u_uarray(String javaString)
     {
         u_array nativeUArray = UArray.stringToUArray(javaString);
