@@ -1,3 +1,9 @@
+jgrapenlp (2.2.0) stable; urgency=medium
+
+  * Added main class that applies a grammar to an input text and prints the generated tagged segments
+
+ -- Javier Sastre <javier.sastre@telefonica.net>  Wed, 13 Feb 2019 18:36:58 +0100
+
 jgrapenlp (2.1.0) stable; urgency=medium
 
   * Maven clean target deletes GrapeNLP Java source files copied from native package libgrapenlp-dev upon install
