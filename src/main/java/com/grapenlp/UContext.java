@@ -26,35 +26,22 @@
 package com.grapenlp;
 
 import com.grapenlp.core.u_array;
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import com.grapenlp.core.u_context;
+import com.grapenlp.core.u_context_key_value_hasher;
 
-public class UArrayTest
+import java.util.Map;
+
+public class UContext
 {
-    static
+    static u_context mapToUContext(Map<String, String> m, u_context_key_value_hasher cHasher)
     {
-        System.loadLibrary("jgrapenlp");
-    }
-
-    @DataProvider(name = "javaStringDataProvider")
-    public Object[][] create_javaString()
-    {
-        return new Object[][]
-                {
-                        {""},
-                        {"a"},
-                        {"á"},
-                        {"öü"},
-                        {"Probando probando un, dos, tres."}
-                };
-    }
-
-    @Test(groups = {"unit"}, dataProvider = "javaStringDataProvider", enabled = false)
-    public void test_encode_string_decode_u_uarray(String javaString)
-    {
-        u_array nativeUArray = UArray.stringToUArray(javaString);
-        String actual = UArray.uArrayToString(nativeUArray);
-        Assert.assertEquals(actual, javaString);
+        u_context ctx = new u_context(cHasher);
+        for (Map.Entry<String, String> e : m.entrySet())
+        {
+            u_array nativeKey = UArray.stringToUArray(e.getKey());
+            u_array nativeValue = UArray.stringToUArray(e.getValue());
+            ctx.ua_set(nativeKey.const_begin(), nativeKey.const_end(), nativeValue.const_begin(), nativeValue.const_end());
+        }
+        return ctx;
     }
 }
